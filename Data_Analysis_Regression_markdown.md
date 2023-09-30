@@ -13,12 +13,12 @@ predict the final diagnosis*.
 ## Database analysis steps:
 
 - Verify and install specific libraries.
-- -Assign our database to a data frame.
-- -Explore our data and check inconsistencies as null values.
-- -Split data into test and training set.
-- -Create the model based into the training dataset and explore the
+- Assign our database to a data frame.
+- Explore our data and check inconsistencies as null values.
+- Split data into test and training set.
+- Create the model based into the training dataset and explore the
   results.
-- -Evaluate model based on specific measurement tools.
+- Evaluate model based on specific measurement tools.
 - Create the model based into the test dataset and explore the results.
 - Evaluate model based on specific measurement tools.
 - Explore results obtained and compare with another model
@@ -27,13 +27,17 @@ predict the final diagnosis*.
 
 Based on this analysis I was able to understand that we have 3 variables
 that are able to describe specific diagnosis and forecast more
-accurately and fast this results.
+accurately and fast this results. Resulting in an accuracy of more than
+\>90% and MSE \>80%.
 
 ``` r
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+## CODE
+
+Database:
+<https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic>
 
 ``` r
 # Define the list of packages to load
