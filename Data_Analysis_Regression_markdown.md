@@ -21,7 +21,7 @@ predict the final diagnosis*.
 - Evaluate model based on specific measurement tools.
 - Create the model based into the test dataset and explore the results.
 - Evaluate model based on specific measurement tools.
-- Explore results obtained and compare with another model
+- Explore results obtained in data analysis.
 
 ## What is the result of this data analysis?
 
