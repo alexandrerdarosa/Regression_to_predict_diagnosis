@@ -27,8 +27,11 @@ predict the final diagnosis*.
 
 Based on this analysis I was able to understand that we have 3 variables
 that are able to describe specific diagnosis and forecast more
-accurately and fast this results. Resulting in an accuracy of more than
-\>90% and MSE \>80%.
+accurately and fast this results.
+
+Resulting in an accuracy of more than \>90% and MSE \>80%. Also, that
+compactness mean, radius worst and area worst are the most important
+variables to split benign and malignant tumors.
 
 ``` r
 knitr::opts_chunk$set(echo = TRUE)
@@ -731,3 +734,68 @@ hist(residuals, main = "Histogram of Residuals", xlab = "Residuals")
 ```
 
 ![](Data_Analysis_Regression_markdown_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+
+``` r
+# Graph analysis to show two main variables that split result of regression analysis.
+#Compactness mean and radius worst
+ggplot(data_h, aes(x=compactness_mean,
+                   y=radius_worst,
+                   col=diagnosis))+
+         geom_point()+
+         geom_smooth(method='lm', se = FALSE)
+```
+
+    ## `geom_smooth()` using formula = 'y ~ x'
+
+![](Data_Analysis_Regression_markdown_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+
+``` r
+# Graph analysis to show two main variables that split result of regression analysis.
+#Compactness mean and area worst
+ggplot(data_h, aes(x=compactness_mean,
+                   y=area_worst,
+                   col=diagnosis))+
+         geom_point()+
+         geom_smooth(method='lm', se = FALSE)
+```
+
+    ## `geom_smooth()` using formula = 'y ~ x'
+
+![](Data_Analysis_Regression_markdown_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+
+``` r
+# Graph analysis to show two main variables that split result of regression analysis.
+#Compactness mean and area worst
+ggplot(data_h, aes(x=radius_worst,
+                   y=area_worst,
+                   col=diagnosis))+
+         geom_point()+
+         geom_smooth(method='lm', se = FALSE)
+```
+
+    ## `geom_smooth()` using formula = 'y ~ x'
+
+![](Data_Analysis_Regression_markdown_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+
+
+
+    ```r
+    #This final graph shows the relationship between three variables compactness_mean, radius_worst and area_worst.
+
+    #First I added a scatterplot comparing compactness_mean and radius_worst based in diagnosis result(left analysis in graph)
+
+    multiple_graph_regression <- ggplot(data_h, aes(x = compactness_mean, y = radius_worst, color = diagnosis)) +
+      geom_point(size = 3) +
+      
+    #Then I added a comparison between compactness_mean and area_worst based in diagnosis result in the same graph(right analysis in graph).
+
+      geom_point(aes(x = area_worst), size = 3) +
+      labs(title = "Multiple Scatterplots",
+           x = "Compactness Mean",
+           y = "Diagnosis") +
+      scale_color_manual(values = c("M" = "darkmagenta", "B" = "cornflowerblue"))
+
+    # Show the combined plot
+    print(multiple_graph_regression)
+
+![](Data_Analysis_Regression_markdown_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
