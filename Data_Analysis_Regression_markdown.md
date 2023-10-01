@@ -752,13 +752,6 @@ hist(residuals, main = "Histogram of Residuals", xlab = "Residuals")
 
 ![](Data_Analysis_Regression_markdown_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
-<figure>
-<img
-src="C:/Users/user/Documents/R_Programming/Breast_cancer_data_set/histogram.png"
-alt="Markdown Logo" />
-<figcaption aria-hidden="true">Markdown Logo</figcaption>
-</figure>
-
 ``` r
 # Graph analysis to show two main variables that split result of
 #regression analysis.
@@ -773,13 +766,6 @@ ggplot(data_h, aes(x=compactness_mean,
     ## `geom_smooth()` using formula = 'y ~ x'
 
 ![](Data_Analysis_Regression_markdown_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
-
-<figure>
-<img
-src="C:/Users/user/Documents/R_Programming/Breast_cancer_data_set/plot_1.png"
-alt="Markdown Logo" />
-<figcaption aria-hidden="true">Markdown Logo</figcaption>
-</figure>
 
 ``` r
 # Graph analysis to show two main variables that split result of
@@ -796,13 +782,6 @@ ggplot(data_h, aes(x=compactness_mean,
 
 ![](Data_Analysis_Regression_markdown_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 
-<figure>
-<img
-src="C:/Users/user/Documents/R_Programming/Breast_cancer_data_set/plot_2.png"
-alt="Markdown Logo" />
-<figcaption aria-hidden="true">Markdown Logo</figcaption>
-</figure>
-
 ``` r
 # Graph analysis to show two main variables that split result of
 #regression analysis.
@@ -817,13 +796,6 @@ ggplot(data_h, aes(x=radius_worst,
     ## `geom_smooth()` using formula = 'y ~ x'
 
 ![](Data_Analysis_Regression_markdown_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
-
-<figure>
-<img
-src="C:/Users/user/Documents/R_Programming/Breast_cancer_data_set/plot_3.png"
-alt="Markdown Logo" />
-<figcaption aria-hidden="true">Markdown Logo</figcaption>
-</figure>
 
 ``` r
 #This final graph shows the relationship between three variables 
@@ -851,10 +823,3 @@ print(multiple_graph_regression)
 ```
 
 ![](Data_Analysis_Regression_markdown_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
-
-<figure>
-<img
-src="C:/Users/user/Documents/R_Programming/Breast_cancer_data_set/plot_4.png"
-alt="Markdown Logo" />
-<figcaption aria-hidden="true">Markdown Logo</figcaption>
-</figure>
