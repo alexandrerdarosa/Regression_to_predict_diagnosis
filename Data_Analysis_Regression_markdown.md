@@ -47,7 +47,8 @@ Paper:
 
 ``` r
 # Define the list of packages to load
-pacotes <- c("tidyr", "tidyverse", "ggplot2", "readr", "caret", "dplyr", "randomForest", "rpart", "stats","tinytex")
+pacotes <- c("tidyr", "tidyverse", "ggplot2", "readr", "caret", "dplyr",
+             "randomForest", "rpart", "stats","tinytex")
 
 # Install and load missing packages
 missing_packages <- pacotes[!pacotes %in% installed.packages()]
@@ -373,13 +374,16 @@ colSums(is.na(data_h))
     ##                       0                       0
 
 ``` r
-#At this time we need to check if both classification categories have a significant representation in our dataset.
+#At this time we need to check if both classification categories 
+# have a significant representation in our dataset.
 # Count the frequency of each class in the 'Category' column
 class_counts <- table(data_h$diagnosis)
 # Calculate the percentage of each class
 class_percentages <- prop.table(class_counts) * 100
 # Create a data frame with counts and percentages
-class_summary <- data.frame(Class = names(class_counts), Count = as.numeric(class_counts), Percentage = class_percentages)
+class_summary <- data.frame(Class = names(class_counts), 
+                            Count = as.numeric(class_counts), 
+                            Percentage = class_percentages)
 # Print the summary table
 print(class_summary)
 ```
@@ -397,13 +401,15 @@ data_h2$diagnosis <- ifelse(data_h2$diagnosis == "M",1,
                             data_h2$diagnosis))
 data_h2$diagnosis <- as.numeric(data_h2$diagnosis)
 
-# Split Data into Training and Testing in R based on 70% training and 30% for test.
+# Split Data into Training and Testing in R based on 70% training 
+# and 30% for test.
 sample_size = floor(0.7*nrow(data_h2))
 
 # Set a random dataset.
 set.seed(777)
 
-# randomly split data in test and train using random split created in the last step.
+# randomly split data in test and train using random split created
+#in the last step.
 train = sample(seq_len(nrow(data_h2)),size = sample_size)
 #split data into train dataset
 data_h_train  = data_h2[train ,]
@@ -421,7 +427,8 @@ dim(data_h_test)
     ## [1] 171  32
 
 ``` r
-#Create variables to prepare, apply linear regression model and assign it to a variable.
+#Create variables to prepare, apply linear regression model 
+#and assign it to a variable.
 #Create Y variable
 nomes <- "diagnosis"
 y_variable <- nomes
@@ -497,7 +504,8 @@ model %>% summary()
 #create a summary variable to create a descending order in next charpter.
 model_summary <- summary(model)
 # Sort the summary by the "Pr(>|t|)" column in ascending order
-sorted_summary <- model_summary$coefficients[order(model_summary$coefficients[, "Pr(>|t|)"]), ]
+sorted_summary <- model_summary$coefficients[order
+                                             (model_summary$coefficients[, "Pr(>|t|)"]), ]
 
 #print summary with ascending order
 print(sorted_summary)
@@ -537,7 +545,8 @@ print(sorted_summary)
     ## fractal_dimension_mean   3.939741e-01 7.311516e+00  0.05388405 9.570569e-01
 
 ``` r
-# Create a prediction using training data and evaluate the model created based on training dataset.
+# Create a prediction using training data and evaluate the model created
+#based on training dataset.
 
 #add our prediction to a data frame.
 data_h_train$train_predicted_value <- stats::predict(model,data_h_train)
@@ -555,7 +564,8 @@ mse <- mean((data_h_train$train_predicted_value - data_h_train$diagnosis)^2)
 # Calculate the Root Mean Squared Error (RMSE)
 rmse <- sqrt(mse)
 
-# MSE is calculated by taking the average of the squared differences between the predicted values and the actual value
+# MSE is calculated by taking the average of the squared differences between 
+#the predicted values and the actual value
 #A lower MSE indicates a better fit of the model to the data.
 cat("Mean Squared Error (MSE):", mse, "\n")
 ```
@@ -563,7 +573,8 @@ cat("Mean Squared Error (MSE):", mse, "\n")
     ## Mean Squared Error (MSE): 0.05332976
 
 ``` r
-#MAE is calculated by taking the average of the absolute differences between the predicted values and the actual values.
+#MAE is calculated by taking the average of the absolute differences
+#between the predicted values and the actual values.
 #A lower MAE indicates a better fit of the model to the data.
 cat("Mean Absolute Error (MAE):", mae, "\n")
 ```
@@ -580,10 +591,12 @@ cat("Root Mean Squared Error (RMSE):", rmse, "\n")
 ``` r
 #Create an evaluation based on confusion matrix, sensitivity and specificity.
 #Convert data to numeric, than we can use it.
-data_h_train$train_predicted_value <- ifelse(data_h_train$train_predicted_value>1.4, 2, 1)
+data_h_train$train_predicted_value <- ifelse(data_h_train$
+                                               train_predicted_value>1.4, 2, 1)
 
 #Create a confusion matrix
-confusion_matrix_train <- caret::confusionMatrix(factor(data_h_train$train_predicted_value), factor(data_h_train$diagnosis))
+confusion_matrix_train <- caret::confusionMatrix(factor(data_h_train$
+                                                          train_predicted_value), factor(data_h_train$diagnosis))
 print(confusion_matrix_train)
 ```
 
@@ -621,7 +634,8 @@ sensitivity <- confusion_matrix_train$byClass["Sensitivity"]
 specificity <- confusion_matrix_train$byClass["Specificity"]
 
 # Print sensitivity and specificity
-#Sensitivity: is also called the true positive rate and is exactly equal to recall.
+#Sensitivity: is also called the true positive rate and is exactly
+#equal to recall.
 cat("Sensitivity:", sensitivity, "\n")
 ```
 
@@ -637,7 +651,8 @@ cat("Specificity:", specificity, "\n")
 ``` r
 # Now we need to calculate prediction based on test data and evaluate it.
 
-#create a prediction using test set, based in model that was based on training model
+#create a prediction using test set, based in model that was based
+#on training model
 data_h_test$test_predicted_value <- stats::predict(model,data_h_test)
 ```
 
@@ -670,10 +685,13 @@ cat("Root Mean Squared Error (RMSE):", rmse, "\n")
 
 ``` r
 #Convert data to numeric, than we can use it.
-data_h_test$test_predicted_value <- ifelse(data_h_test$test_predicted_value>1.4, 2, 1)
+data_h_test$test_predicted_value <- ifelse(data_h_test$
+                                             test_predicted_value>1.4, 2, 1)
 
 #Create a confusion matrix
-confusion_matrix_test <- caret::confusionMatrix(factor(data_h_test$test_predicted_value), factor(data_h_test$diagnosis))
+confusion_matrix_test <- caret::confusionMatrix(factor(data_h_test$
+                                                         test_predicted_value),
+                                                factor(data_h_test$diagnosis))
 print(confusion_matrix_test)
 ```
 
@@ -711,7 +729,8 @@ sensitivity <- confusion_matrix_test$byClass["Sensitivity"]
 specificity <- confusion_matrix_test$byClass["Specificity"]
 
 # Print sensitivity and specificity
-#Sensitivity: is also called the true positive rate and is exactly equal to recall.
+#Sensitivity: is also called the true positive rate and is exactly
+#equal to recall.
 cat("Sensitivity:", sensitivity, "\n")
 ```
 
@@ -733,8 +752,16 @@ hist(residuals, main = "Histogram of Residuals", xlab = "Residuals")
 
 ![](Data_Analysis_Regression_markdown_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
+<figure>
+<img
+src="C:/Users/user/Documents/R_Programming/Breast_cancer_data_set/histogram.png"
+alt="Markdown Logo" />
+<figcaption aria-hidden="true">Markdown Logo</figcaption>
+</figure>
+
 ``` r
-# Graph analysis to show two main variables that split result of regression analysis.
+# Graph analysis to show two main variables that split result of
+#regression analysis.
 #Compactness mean and radius worst
 ggplot(data_h, aes(x=compactness_mean,
                    y=radius_worst,
@@ -747,8 +774,16 @@ ggplot(data_h, aes(x=compactness_mean,
 
 ![](Data_Analysis_Regression_markdown_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
 
+<figure>
+<img
+src="C:/Users/user/Documents/R_Programming/Breast_cancer_data_set/plot_1.png"
+alt="Markdown Logo" />
+<figcaption aria-hidden="true">Markdown Logo</figcaption>
+</figure>
+
 ``` r
-# Graph analysis to show two main variables that split result of regression analysis.
+# Graph analysis to show two main variables that split result of
+# regression analysis.
 #Compactness mean and area worst
 ggplot(data_h, aes(x=compactness_mean,
                    y=area_worst,
@@ -761,8 +796,16 @@ ggplot(data_h, aes(x=compactness_mean,
 
 ![](Data_Analysis_Regression_markdown_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 
+<figure>
+<img
+src="C:/Users/user/Documents/R_Programming/Breast_cancer_data_set/plot_2.png"
+alt="Markdown Logo" />
+<figcaption aria-hidden="true">Markdown Logo</figcaption>
+</figure>
+
 ``` r
-# Graph analysis to show two main variables that split result of regression analysis.
+# Graph analysis to show two main variables that split result of
+#regression analysis.
 #Compactness mean and area worst
 ggplot(data_h, aes(x=radius_worst,
                    y=area_worst,
@@ -775,15 +818,27 @@ ggplot(data_h, aes(x=radius_worst,
 
 ![](Data_Analysis_Regression_markdown_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
 
+<figure>
+<img
+src="C:/Users/user/Documents/R_Programming/Breast_cancer_data_set/plot_3.png"
+alt="Markdown Logo" />
+<figcaption aria-hidden="true">Markdown Logo</figcaption>
+</figure>
+
 ``` r
-#This final graph shows the relationship between three variables compactness_mean, radius_worst and area_worst.
+#This final graph shows the relationship between three variables 
+#compactness_mean, radius_worst and area_worst.
 
-#First I added a scatterplot comparing compactness_mean and radius_worst based in diagnosis result(left analysis in graph)
+#First I added a scatterplot comparing compactness_mean and radius_worst
+#based in diagnosis result(left analysis in graph)
 
-multiple_graph_regression <- ggplot(data_h, aes(x = compactness_mean, y = radius_worst, color = diagnosis)) +
+multiple_graph_regression <- ggplot(data_h, aes(x = compactness_mean,
+                                                y = radius_worst, 
+                                                color = diagnosis)) +
   geom_point(size = 3) +
   
-#Then I added a comparison between compactness_mean and area_worst based in diagnosis result in the same graph(right analysis in graph).
+#Then I added a comparison between compactness_mean and area_worst based 
+#in diagnosis result in the same graph(right analysis in graph).
 
   geom_point(aes(x = area_worst), size = 3) +
   labs(title = "Comparison between multiple variables:",
@@ -796,3 +851,10 @@ print(multiple_graph_regression)
 ```
 
 ![](Data_Analysis_Regression_markdown_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+
+<figure>
+<img
+src="C:/Users/user/Documents/R_Programming/Breast_cancer_data_set/plot_4.png"
+alt="Markdown Logo" />
+<figcaption aria-hidden="true">Markdown Logo</figcaption>
+</figure>
