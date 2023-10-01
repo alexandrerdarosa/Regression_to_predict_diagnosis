@@ -41,6 +41,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Database:
 <https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic>
+Paper:
+<https://minds.wisconsin.edu/bitstream/handle/1793/59692/TR1131.pdf?sequence=1>
 
 ``` r
 # Define the list of packages to load
@@ -136,11 +138,6 @@ getwd()
 ```
 
     ## [1] "C:/Users/user/Documents/R_Programming/Breast_cancer_data_set"
-
-``` r
-#tinytex::install_tinytex()
-#tinytex::install_tinytex(extra_packages = "pdflatex")
-```
 
 ``` r
 # Get data and explore it
@@ -777,25 +774,24 @@ ggplot(data_h, aes(x=radius_worst,
 
 ![](Data_Analysis_Regression_markdown_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
 
+``` r
+#This final graph shows the relationship between three variables compactness_mean, radius_worst and area_worst.
 
+#First I added a scatterplot comparing compactness_mean and radius_worst based in diagnosis result(left analysis in graph)
 
-    ```r
-    #This final graph shows the relationship between three variables compactness_mean, radius_worst and area_worst.
+multiple_graph_regression <- ggplot(data_h, aes(x = compactness_mean, y = radius_worst, color = diagnosis)) +
+  geom_point(size = 3) +
+  
+#Then I added a comparison between compactness_mean and area_worst based in diagnosis result in the same graph(right analysis in graph).
 
-    #First I added a scatterplot comparing compactness_mean and radius_worst based in diagnosis result(left analysis in graph)
+  geom_point(aes(x = area_worst), size = 3) +
+  labs(title = "Comparison between multiple variables:",
+       x = "Compactness Mean",
+       y = "Diagnosis") +
+  scale_color_manual(values = c("M" = "darkmagenta", "B" = "cornflowerblue"))
 
-    multiple_graph_regression <- ggplot(data_h, aes(x = compactness_mean, y = radius_worst, color = diagnosis)) +
-      geom_point(size = 3) +
-      
-    #Then I added a comparison between compactness_mean and area_worst based in diagnosis result in the same graph(right analysis in graph).
-
-      geom_point(aes(x = area_worst), size = 3) +
-      labs(title = "Multiple Scatterplots",
-           x = "Compactness Mean",
-           y = "Diagnosis") +
-      scale_color_manual(values = c("M" = "darkmagenta", "B" = "cornflowerblue"))
-
-    # Show the combined plot
-    print(multiple_graph_regression)
+# Show the combined plot
+print(multiple_graph_regression)
+```
 
 ![](Data_Analysis_Regression_markdown_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
